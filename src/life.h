@@ -7,6 +7,7 @@ typedef struct Life Life;
 
 typedef struct {
     void (*deinit)(Life *life);
+    void (*reset)(Life *life);
     bool (*get)(const Life *life, i64 i, i64 j);
     void (*set)(Life *life, i64 i, i64 j, bool val);
     void (*step)(Life *life);
@@ -15,6 +16,16 @@ typedef struct {
 struct Life {
     const LifeVTable *vtable;
 };
+
+static inline void life_deinit(Life *life)
+{
+    life->vtable->deinit(life);
+}
+
+static inline void life_reset(Life *life)
+{
+    life->vtable->reset(life);
+}
 
 static inline bool life_get(const Life *life, i64 i, i64 j)
 {
@@ -29,11 +40,6 @@ static inline void life_set(Life *life, i64 i, i64 j, bool val)
 static inline void life_step(Life *life)
 {
     life->vtable->step(life);
-}
-
-static inline void life_deinit(Life *life)
-{
-    life->vtable->deinit(life);
 }
 
 void life_destroy(Life *life);

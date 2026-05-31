@@ -14,9 +14,11 @@ dependencies = [
 ]
 
 sources = [
+  'src/coord_set.c',
   'src/life.c',
   'src/main.c',
   'src/naive_life.c',
+  'src/util.c',
 ]
 
 exe = executable(

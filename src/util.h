@@ -13,4 +13,11 @@ typedef uint32_t u32;
 typedef uint16_t u16;
 typedef uint8_t u8;
 
+typedef struct {
+    i64 i;
+    i64 j;
+} Coord;
+
+bool coord_eq(Coord lhs, Coord rhs);
+
 #endif
