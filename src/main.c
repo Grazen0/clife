@@ -17,6 +17,9 @@ static constexpr float ZOOM_SPEED = 0.2F;
 static constexpr float MIN_ZOOM = 0.1F;
 static constexpr float MAX_ZOOM = 10.0F;
 
+static constexpr float MIN_STEP_DELAY = 0.001F;
+static constexpr float MAX_STEP_DELAY = 1.0F;
+
 static void process_camera_zoom(Camera2D *cam)
 {
     // https://www.raylib.com/examples/core/loader.html?name=core_2d_camera_mouse_zoom
@@ -69,7 +72,8 @@ int main()
     Coord last_toggled = {};
 
     bool step_enabled = false;
-    float step_delay = 0.0F;
+    float step_timer = 0.0F;
+    float step_delay = 0.1F;
 
     while (!WindowShouldClose()) {
         process_camera_zoom(&cam);
@@ -91,14 +95,22 @@ int main()
 
         if (IsKeyPressed(KEY_SPACE)) {
             step_enabled = !step_enabled;
-            step_delay = 0.0F;
+            step_timer = step_delay;
         }
 
-        if (step_enabled) {
-            step_delay -= GetFrameTime();
+        if (IsKeyPressed(KEY_DOWN))
+            step_delay =
+                Clamp(step_delay * 1.25F, MIN_STEP_DELAY, MAX_STEP_DELAY);
 
-            if (step_delay <= 0.0F) {
-                step_delay += 0.1F;
+        if (IsKeyPressed(KEY_UP))
+            step_delay =
+                Clamp(step_delay * 0.75F, MIN_STEP_DELAY, MAX_STEP_DELAY);
+
+        if (step_enabled) {
+            step_timer += GetFrameTime();
+
+            if (step_timer >= step_delay) {
+                step_timer = 0.0F;
                 life_step(life);
             }
         }
