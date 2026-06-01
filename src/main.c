@@ -13,7 +13,7 @@ static constexpr int WIN_HEIGHT = 540;
 static constexpr float CELL_SIZE = 30.0F;
 static constexpr float LINE_THICK = 3.0F;
 
-static constexpr float ZOOM_SPEED = 0.2F;
+static constexpr float ZOOM_SPEED = 0.15F;
 static constexpr float MIN_ZOOM = 0.1F;
 static constexpr float MAX_ZOOM = 10.0F;
 
