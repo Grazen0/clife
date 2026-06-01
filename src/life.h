@@ -1,7 +1,7 @@
 #ifndef CLIFE_LIFE_H
 #define CLIFE_LIFE_H
 
-#include "src/util.h"
+#include "util.h"
 
 typedef struct Life Life;
 
