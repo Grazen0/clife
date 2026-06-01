@@ -48,7 +48,7 @@ static size_t count_neighbors(const NaiveLife *life, i64 i, i64 j)
 
 NaiveLife naive_life_init()
 {
-    static const LifeVTable vtable = {
+    static const LifeVTable VTABLE = {
         .reset = naive_life_vtbl_reset,
         .get = naive_life_vtbl_get,
         .set = naive_life_vtbl_set,
@@ -57,7 +57,7 @@ NaiveLife naive_life_init()
     };
 
     return (NaiveLife){
-        .base = {.vtable = &vtable},
+        .base = {.vtable = &VTABLE},
         .active = coord_set_init(),
     };
 }
@@ -69,6 +69,14 @@ NaiveLife *naive_life_create()
         *life = naive_life_init();
 
     return life;
+}
+
+void naive_life_destroy(NaiveLife *life)
+{
+    if (life != nullptr) {
+        naive_life_deinit(life);
+        free(life);
+    }
 }
 
 void naive_life_deinit(NaiveLife *life)

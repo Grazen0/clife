@@ -14,6 +14,8 @@ NaiveLife naive_life_init();
 
 NaiveLife *naive_life_create();
 
+void naive_life_destroy(NaiveLife *life);
+
 void naive_life_deinit(NaiveLife *life);
 
 void naive_life_reset(NaiveLife *life);
